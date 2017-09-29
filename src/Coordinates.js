@@ -23,9 +23,17 @@ Lyngk.Coordinates = function (c, l) {
         }
     };
 
-    this.toString = function(){
-        return colonne+ligne;
+    this.toString = function () {
+        return colonne + ligne;
     };
+
+    this.getFormatCoord = function () {
+        if(this.is_valid()){
+            return this.toString();
+        }else{
+            return 'invalid';
+        }
+    }
 
 
 };
