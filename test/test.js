@@ -21,3 +21,8 @@ LyngkTestCase.prototype.testStory2 = function () {
     assertTrue(compteur === 43);
 
 };
+
+LyngkTestCase.prototype.testStory3 = function () {
+    var coordinates = new Lyngk.Coordinates('A', 1);
+    assertTrue(coordinates.toString()==="A1");
+};
