@@ -9,7 +9,15 @@ LyngkTestCase.prototype.testStory1 = function () {
 };
 
 LyngkTestCase.prototype.testStory2 = function () {
-    var coordinates = new Lyngk.Coordinates();
+    var compteur = 0;
+    var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+    for (var c = 0; c < letters.length; c++) {
+        for (var l = 1; l < 10; l++) {
+            if (new Lyngk.Coordinates(letters[c], l).is_valid())
+                compteur++;
+        }
+    }
 
-    assertTrue(coordinates.numberValidCoordinates() === 43);
+    assertTrue(compteur === 43);
+
 };
