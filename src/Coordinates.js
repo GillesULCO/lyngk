@@ -21,7 +21,11 @@ Lyngk.Coordinates = function (c, l) {
         } else {
             return true;
         }
-    }
+    };
+
+    this.toString = function(){
+        return colonne+ligne;
+    };
 
 
 };
