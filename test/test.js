@@ -18,11 +18,16 @@ LyngkTestCase.prototype.testStory2 = function () {
         }
     }
 
-    assertTrue(compteur === 43);
+    assertEquals(compteur, 43);
 
 };
 
 LyngkTestCase.prototype.testStory3 = function () {
     var coordinates = new Lyngk.Coordinates('A', 1);
     assertTrue(coordinates.toString()==="A1");
+};
+
+LyngkTestCase.prototype.testStory4 = function () {
+    var coordinates = new Lyngk.Coordinates('A', 1);
+    assertEquals(this.getFormatCoord(), 'invalid')
 };
