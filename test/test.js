@@ -29,5 +29,11 @@ LyngkTestCase.prototype.testStory3 = function () {
 
 LyngkTestCase.prototype.testStory4 = function () {
     var coordinates = new Lyngk.Coordinates('A', 1);
-    assertEquals(coordinates.getFormatCoord(), 'invalid')
+    assertEquals(coordinates.getFormatCoord(), 'invalid');
+};
+
+LyngkTestCase.prototype.testStory5 = function () {
+    var coord_1= new Lyngk.Coordinates('A', 1);
+    var coord_2 = coord_1.clone();
+    assertEquals(coord_1.toString(), coord_2.toString());
 };
