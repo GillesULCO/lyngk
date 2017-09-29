@@ -33,6 +33,10 @@ Lyngk.Coordinates = function (c, l) {
         }else{
             return 'invalid';
         }
+    };
+
+    this.clone=function(){
+        return new Lyngk.Coordinates(colonne,ligne);
     }
 
 
