@@ -37,3 +37,20 @@ LyngkTestCase.prototype.testStory5 = function () {
     var coord_2 = coord_1.clone();
     assertEquals(coord_1.toString(), coord_2.toString());
 };
+
+LyngkTestCase.prototype.testStory6 = function () {
+    var arrayHashs = [];
+    var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
+    for (var c = 0; c < letters.length; c++) {
+        for (var l = 1; l < 10; l++) {
+            var coord = new Lyngk.Coordinates(letters[c], l);
+            if(coord.is_valid()) {
+                var hash = coord.getHash();
+                if (arrayHashs.indexOf(hash) === -1) {
+                    arrayHashs.push(hash);
+                }
+            }
+        }
+    }
+    assertEquals(arrayHashs.length, 43);
+};
