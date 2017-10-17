@@ -66,3 +66,11 @@ LyngkTestCase.prototype.testStory8 = function () {
     assertEquals(inter_1.getColorLastPiece(), "bleu");
     assertEquals(inter_1.getState(), Lyngk.State.ONE_PIECE);
 };
+
+LyngkTestCase.prototype.testStory9 = function () {
+    var inter_1 = new Lyngk.Intersection(new Lyngk.Coordinates('A', 1));
+    inter_1.poserPiece("bleu");
+    inter_1.poserPiece("rouge");
+    assertEquals(inter_1.getColorLastPiece(), "rouge");
+    assertEquals(inter_1.getState(), Lyngk.State.STACK);
+};
