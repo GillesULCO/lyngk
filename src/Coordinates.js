@@ -39,5 +39,13 @@ Lyngk.Coordinates = function (c, l) {
         return new Lyngk.Coordinates(colonne,ligne);
     }
 
+    this.getHash = function(){
+        var hash = 0 ;
+        hash += colonne.charCodeAt(0);
+        hash = hash.toString();
+        hash += ligne;
+        return parseInt(hash);
+    }
+
 
 };
