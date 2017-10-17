@@ -84,3 +84,11 @@ LyngkTestCase.prototype.testStory10 = function () {
     inter_1.poserPiece("rouge");
     assertEquals(inter_1.getState(), Lyngk.State.FULL_STACK);
 };
+
+LyngkTestCase.prototype.testStory11 = function () {
+    var plateau = new Lyngk.Engine();
+    var intersections = plateau.getIntersections();
+    for (var iter = 0; iter < intersections.length; iter++) {
+        assertEquals(intersections[iter].getNbPieces(), 1);
+    }
+};
