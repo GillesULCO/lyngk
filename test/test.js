@@ -57,5 +57,12 @@ LyngkTestCase.prototype.testStory6 = function () {
 
 LyngkTestCase.prototype.testStory7 = function () {
     var inter_1 = new Lyngk.Intersection(new Lyngk.Coordinates('A', 1));
-    assertEquals(inter_1.getState(), 0);
+    assertEquals(inter_1.getState(), Lyngk.State.VACANT);
+};
+
+LyngkTestCase.prototype.testStory8 = function () {
+    var inter_1 = new Lyngk.Intersection(new Lyngk.Coordinates('A', 1));
+    inter_1.poserPiece("bleu");
+    assertEquals(inter_1.getColorLastPiece(), "bleu");
+    assertEquals(inter_1.getState(), Lyngk.State.ONE_PIECE);
 };
