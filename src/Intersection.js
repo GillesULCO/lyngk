@@ -11,6 +11,10 @@ Lyngk.Intersection = function (c) {
         return state;
     };
 
+    this.getNbPieces = function () {
+        return nb_pieces;
+    };
+
     this.getColorLastPiece = function () {
         return colorLastPiece;
     };
