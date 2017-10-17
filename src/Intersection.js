@@ -12,16 +12,23 @@ Lyngk.Intersection = function (c) {
     };
 
     this.getColorLastPiece = function () {
-      return colorLastPiece;
+        return colorLastPiece;
     };
 
     this.poserPiece = function (color) {
         var piece = new Lyngk.Piece(color);
         colorLastPiece = piece.getcolor();
-        if (nb_pieces === 0) {
-            state = Lyngk.State.ONE_PIECE;
-        }
         nb_pieces++;
+        if (nb_pieces === 1) {
+            state = Lyngk.State.ONE_PIECE;
+        } else {
+            if (nb_pieces > 1 && nb_pieces < 5) {
+                state = Lyngk.State.STACK;
+            } else {
+                state = Lyngk.State.FULL_STACK;
+            }
+        }
+
     }
 
 
