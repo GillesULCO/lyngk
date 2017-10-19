@@ -88,7 +88,49 @@ LyngkTestCase.prototype.testStory10 = function () {
 LyngkTestCase.prototype.testStory11 = function () {
     var plateau = new Lyngk.Engine();
     var intersections = plateau.getIntersections();
+    assertEquals(intersections.length, 43);
     for (var iter = 0; iter < intersections.length; iter++) {
         assertEquals(intersections[iter].getNbPieces(), 1);
     }
+};
+
+LyngkTestCase.prototype.testStory12 = function () {
+    var plateau = new Lyngk.Engine();
+    plateau.getRandomColor();
+
+    var intersections = plateau.getIntersections();
+    var nb_pieces_black = 0;
+    var nb_pieces_ivory = 0;
+    var nb_pieces_blue = 0;
+    var nb_pieces_red = 0;
+    var nb_pieces_green = 0;
+    var nb_pieces_white = 0;
+    for (var inter = 0 ; inter < intersections.length ; inter++){
+        switch(intersections[inter].getColorLastPiece()) {
+            case Lyngk.Color.BLACK :
+                nb_pieces_black++;
+                break;
+            case Lyngk.Color.BLUE :
+                nb_pieces_blue++;
+                break;
+            case Lyngk.Color.GREEN :
+                nb_pieces_green++;
+                break;
+            case Lyngk.Color.RED :
+                nb_pieces_red++;
+                break;
+            case Lyngk.Color.IVORY :
+                nb_pieces_ivory++;
+                break;
+            case Lyngk.Color.WHITE :
+                nb_pieces_white++;
+                break
+        }
+    }
+    assertEquals(nb_pieces_white, 3);
+    assertEquals(nb_pieces_red, 8);
+    assertEquals(nb_pieces_blue, 8);
+    assertEquals(nb_pieces_ivory, 8);
+    assertEquals(nb_pieces_green, 8);
+    assertEquals(nb_pieces_black, 8);
 };
