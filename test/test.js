@@ -190,3 +190,12 @@ LyngkTestCase.prototype.testStory16 = function () {
     assertTrue(inter_B2.getColorPile() === inter_B3.getColorLastPiece());
     assertTrue(inter_B3.getState() === Lyngk.State.VACANT);
 };
+
+LyngkTestCase.prototype.testStory17 = function () {
+    var plateau = new Lyngk.Engine();
+    var coord_B2 = new Lyngk.Coordinates('B', 2);
+    var coord_B3 = new Lyngk.Coordinates('B', 3);
+
+    assertTrue(plateau.move(coord_B2, coord_B3));
+    assertFalse(plateau.move(coord_B3, coord_B2));
+};
