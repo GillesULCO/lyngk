@@ -199,3 +199,11 @@ LyngkTestCase.prototype.testStory17 = function () {
     assertTrue(plateau.move(coord_B2, coord_B3));
     assertFalse(plateau.move(coord_B3, coord_B2));
 };
+
+LyngkTestCase.prototype.testStory18 = function() {
+    var plateau = new Lyngk.Engine();
+    var coord_C2 = new Lyngk.Coordinates('C', 2);
+    var coord_B3 = new Lyngk.Coordinates('B', 3);
+
+    assertFalse(plateau.move(coord_C2, coord_B3));
+};
