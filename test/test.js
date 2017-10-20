@@ -142,3 +142,22 @@ LyngkTestCase.prototype.teststory13 = function () {
         assertEquals(intersections[iter].getPile().length, 1);
     }
 };
+
+LyngkTestCase.prototype.testStory14  =function () {
+    var plateau = new Lyngk.Engine();
+    var intersections = plateau.getIntersections();
+    intersections[1].poserPiece(Lyngk.Color.BLUE);
+    intersections[1].poserPiece(Lyngk.Color.RED);
+    intersections[1].poserPiece(Lyngk.Color.GREEN);
+
+    var pile_inter1 = intersections[1].getPile();
+
+    assertTrue(pile_inter1[1].getColor() === Lyngk.Color.BLUE);
+    assertTrue(pile_inter1[2].getColor() === Lyngk.Color.RED);
+    assertTrue(pile_inter1[3].getColor() === Lyngk.Color.GREEN);
+
+    for (var iter = 0; iter < intersections.length; iter++) {
+        assertTrue(intersections[iter].getPileHeight() > 0);
+        assertTrue(intersections[iter].getColorPile() === intersections[iter].getColorLastPiece());
+    }
+};
