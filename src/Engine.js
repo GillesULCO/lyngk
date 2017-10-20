@@ -92,13 +92,19 @@ Lyngk.Engine = function () {
         return false;
     };
 
-    this.move = function (source, dest){
-        if(source.equal(dest))
+    this.move = function (source, dest) {
+        if (source.equal(dest))
             return false;
-        var inter_source = this.getIntersection(source);
+
         var inter_dest = this.getIntersection(dest);
+        if (inter_dest.getState() === Lyngk.State.VACANT)
+            return false;
+
+        var inter_source = this.getIntersection(source);
+
         inter_dest.setPile(inter_dest.getPile().concat(inter_source.getPile()));
         inter_source.clearPile();
+        return true;
     };
 
 };
