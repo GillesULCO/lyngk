@@ -105,8 +105,8 @@ LyngkTestCase.prototype.testStory12 = function () {
     var nb_pieces_red = 0;
     var nb_pieces_green = 0;
     var nb_pieces_white = 0;
-    for (var inter = 0 ; inter < intersections.length ; inter++){
-        switch(intersections[inter].getColorLastPiece()) {
+    for (var inter = 0; inter < intersections.length; inter++) {
+        switch (intersections[inter].getColorLastPiece()) {
             case Lyngk.Color.BLACK :
                 nb_pieces_black++;
                 break;
@@ -133,4 +133,12 @@ LyngkTestCase.prototype.testStory12 = function () {
     assertEquals(nb_pieces_ivory, 8);
     assertEquals(nb_pieces_green, 8);
     assertEquals(nb_pieces_black, 8);
+};
+
+LyngkTestCase.prototype.teststory13 = function () {
+    var plateau = new Lyngk.Engine();
+    var intersections = plateau.getIntersections();
+    for (var iter = 0; iter < intersections.length; iter++) {
+        assertEquals(intersections[iter].getPile().length, 1);
+    }
 };
