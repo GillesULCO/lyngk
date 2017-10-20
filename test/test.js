@@ -175,3 +175,18 @@ LyngkTestCase.prototype.testStory15 = function () {
     assertEquals(inter_B3.getColorPile(), Lyngk.Color.BLACK);
     assertEquals(inter_A3.getState(), Lyngk.State.VACANT);
 };
+
+LyngkTestCase.prototype.testStory16 = function () {
+    var plateau = new Lyngk.Engine();
+    var coord_B2 = new Lyngk.Coordinates('B', 2);
+    var coord_B3 = new Lyngk.Coordinates('B', 3);
+    var inter_B2 = plateau.getIntersection(coord_B2);
+    var inter_B3 = plateau.getIntersection(coord_B3);
+
+    inter_B3.poserPiece(Lyngk.Color.BLUE);
+    plateau.move(coord_B3, coord_B2);
+
+    assertTrue(inter_B2.getPileHeight() === 3);
+    assertTrue(inter_B2.getColorPile() === inter_B3.getColorLastPiece());
+    assertTrue(inter_B3.getState() === Lyngk.State.VACANT);
+};
