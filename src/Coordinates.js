@@ -37,7 +37,7 @@ Lyngk.Coordinates = function (c, l) {
 
     this.clone=function(){
         return new Lyngk.Coordinates(colonne,ligne);
-    }
+    };
 
     this.getHash = function(){
         var hash = 0 ;
@@ -45,7 +45,15 @@ Lyngk.Coordinates = function (c, l) {
         hash = hash.toString();
         hash += ligne;
         return parseInt(hash);
-    }
+    };
+
+    this.getLine = function (){
+        return ligne;
+    };
+
+    this.getColumn = function() {
+        return colonne;
+    };
 
 
 };

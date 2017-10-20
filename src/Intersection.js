@@ -19,31 +19,53 @@ Lyngk.Intersection = function (c) {
         return colorLastPiece;
     };
 
+    this.getPileHeight = function () {
+        return pile.length;
+    };
+
     this.getColorPile = function () {
-        return pile[pile.length - 1].getColor();
+        return pile[this.getPileHeight() - 1].getColor();
     };
 
     this.getPile = function () {
         return pile;
     };
 
-    this.getPileHeight = function () {
-        return pile.length;
+    this.updateState = function () {
+        if (this.getPileHeight() === 0) {
+            state = Lyngk.State.VACANT;
+        } else if (this.getPileHeight() === 1) {
+            state = Lyngk.State.ONE_PIECE;
+        } else if (this.getPileHeight() > 1 && this.getPileHeight() < 5) {
+            state = Lyngk.State.STACK;
+        } else {
+            state = Lyngk.State.FULL_STACK;
+        }
+    };
+
+    this.setPile = function (newPile) {
+        pile = newPile;
+        this.updateState();
+    };
+
+    this.clearPile = function () {
+        pile.splice(0, this.getPileHeight());
+        this.updateState();
     };
 
     this.poserPiece = function (color) {
         var piece = new Lyngk.Piece(color);
         colorLastPiece = piece.getColor();
         pile.push(piece);
-        if (this.getPileHeight() === 1) {
-            state = Lyngk.State.ONE_PIECE;
-        } else {
-            if (this.getPileHeight() > 1 && this.getPileHeight() < 5) {
-                state = Lyngk.State.STACK;
-            } else {
-                state = Lyngk.State.FULL_STACK;
-            }
-        }
+        this.updateState();
+    };
 
-    }
+    this.getLine = function () {
+        return c.getLine();
+    };
+
+    this.getColumn = function () {
+        return c.getColumn();
+    };
+
 };

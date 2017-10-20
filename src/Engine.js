@@ -81,7 +81,22 @@ Lyngk.Engine = function () {
 
     this.getIntersections = function () {
         return intersections;
-    }
+    };
 
+    this.getIntersection = function (coordonnee) {
+        var intersections = this.getIntersections();
+        for (var i = 0; i < intersections.length; i++) {
+            if (intersections[i].getLine() === coordonnee.getLine() && intersections[i].getColumn() === coordonnee.getColumn())
+                return intersections[i];
+        }
+        return false;
+    };
+
+    this.move = function (coord1, coord2){
+        var inter1 = this.getIntersection(coord1);
+        var inter2 = this.getIntersection(coord2);
+        inter2.setPile(inter2.getPile().concat(inter1.getPile()));
+        inter1.clearPile();
+    };
 
 };
