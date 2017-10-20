@@ -27,14 +27,18 @@ Lyngk.Intersection = function (c) {
         return pile;
     };
 
+    this.getPileHeight = function () {
+        return pile.length;
+    };
+
     this.poserPiece = function (color) {
         var piece = new Lyngk.Piece(color);
         colorLastPiece = piece.getColor();
         pile.push(piece);
-        if (pile.length === 1) {
+        if (this.getPileHeight() === 1) {
             state = Lyngk.State.ONE_PIECE;
         } else {
-            if (pile.length > 1 && pile.length < 5) {
+            if (this.getPileHeight() > 1 && this.getPileHeight() < 5) {
                 state = Lyngk.State.STACK;
             } else {
                 state = Lyngk.State.FULL_STACK;
