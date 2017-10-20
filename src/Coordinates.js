@@ -28,31 +28,35 @@ Lyngk.Coordinates = function (c, l) {
     };
 
     this.getFormatCoord = function () {
-        if(this.is_valid()){
+        if (this.is_valid()) {
             return this.toString();
-        }else{
+        } else {
             return 'invalid';
         }
     };
 
-    this.clone=function(){
-        return new Lyngk.Coordinates(colonne,ligne);
+    this.clone = function () {
+        return new Lyngk.Coordinates(colonne, ligne);
     };
 
-    this.getHash = function(){
-        var hash = 0 ;
+    this.getHash = function () {
+        var hash = 0;
         hash += colonne.charCodeAt(0);
         hash = hash.toString();
         hash += ligne;
         return parseInt(hash);
     };
 
-    this.getLine = function (){
+    this.getLine = function () {
         return ligne;
     };
 
-    this.getColumn = function() {
+    this.getColumn = function () {
         return colonne;
+    };
+
+    this.equal = function (coordonnee) {
+        return (this.getLine() === coordonnee.getLine() && this.getColumn() === coordonnee.getColumn());
     };
 
 

@@ -92,11 +92,13 @@ Lyngk.Engine = function () {
         return false;
     };
 
-    this.move = function (coord1, coord2){
-        var inter1 = this.getIntersection(coord1);
-        var inter2 = this.getIntersection(coord2);
-        inter2.setPile(inter2.getPile().concat(inter1.getPile()));
-        inter1.clearPile();
+    this.move = function (source, dest){
+        if(source.equal(dest))
+            return false;
+        var inter_source = this.getIntersection(source);
+        var inter_dest = this.getIntersection(dest);
+        inter_dest.setPile(inter_dest.getPile().concat(inter_source.getPile()));
+        inter_source.clearPile();
     };
 
 };

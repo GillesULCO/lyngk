@@ -24,7 +24,8 @@ Lyngk.Intersection = function (c) {
     };
 
     this.getColorPile = function () {
-        return pile[this.getPileHeight() - 1].getColor();
+
+        return (this.getPileHeight() > 0) ? pile[this.getPileHeight() - 1].getColor() : false;
     };
 
     this.getPile = function () {
