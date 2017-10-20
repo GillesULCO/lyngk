@@ -143,7 +143,7 @@ LyngkTestCase.prototype.teststory13 = function () {
     }
 };
 
-LyngkTestCase.prototype.testStory14  =function () {
+LyngkTestCase.prototype.testStory14 = function () {
     var plateau = new Lyngk.Engine();
     var intersections = plateau.getIntersections();
     intersections[1].poserPiece(Lyngk.Color.BLUE);
@@ -160,4 +160,18 @@ LyngkTestCase.prototype.testStory14  =function () {
         assertTrue(intersections[iter].getPileHeight() > 0);
         assertTrue(intersections[iter].getColorPile() === intersections[iter].getColorLastPiece());
     }
+};
+
+LyngkTestCase.prototype.testStory15 = function () {
+    var plateau = new Lyngk.Engine();
+    var coord_A3 = new Lyngk.Coordinates('A', 3);
+    var coord_B3 = new Lyngk.Coordinates('B', 3);
+    var inter_B3 = plateau.getIntersection(coord_B3);
+    var inter_A3 = plateau.getIntersection(coord_A3);
+    inter_A3.poserPiece(Lyngk.Color.BLACK);
+
+    plateau.move(coord_A3, coord_B3);
+
+    assertEquals(inter_B3.getColorPile(), Lyngk.Color.BLACK);
+    assertEquals(inter_A3.getState(), Lyngk.State.VACANT);
 };
