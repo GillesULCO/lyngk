@@ -92,9 +92,71 @@ Lyngk.Engine = function () {
         return false;
     };
 
+    this.isMoveValid = function (source, dest) {
+        var voisins_sources = [];
+        var ligneSource = source.getLine();
+        var colonneSource = source.getColumn();
+        var currentLigne;
+        var currentColonne;
+        var tempPotentielVoisin;
+
+        //check voisin du haut
+        currentLigne = source.getLine() + 1;
+        tempPotentielVoisin = new Lyngk.Coordinates(colonneSource, currentLigne);
+        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
+            return true;
+        }
+
+        //check voisin du bas
+        currentLigne = source.getLine() - 1;
+        tempPotentielVoisin = new Lyngk.Coordinates(colonneSource, currentLigne);
+        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
+            return true;
+        }
+
+        //check voisin haut droite
+        currentLigne = source.getLine() + 1;
+        currentColonne = String.fromCharCode((source.getColumn().charCodeAt(0)) + 1);
+        tempPotentielVoisin = new Lyngk.Coordinates(currentColonne, currentLigne);
+        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
+            return true;
+        }
+
+        //check voisin haut gauche
+
+        currentColonne = String.fromCharCode((source.getColumn().charCodeAt(0)) - 1);
+        tempPotentielVoisin = new Lyngk.Coordinates(currentColonne, ligneSource);
+        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
+            return true;
+        }
+
+        //check voisin bas droite
+        currentColonne = String.fromCharCode((source.getColumn().charCodeAt(0)) + 1);
+        tempPotentielVoisin = new Lyngk.Coordinates(currentColonne, ligneSource);
+        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
+            return true;
+        }
+
+        //check voisin bas gauche
+        currentLigne = source.getLine() - 1;
+        currentColonne = String.fromCharCode((source.getColumn().charCodeAt(0)) - 1);
+        tempPotentielVoisin = new Lyngk.Coordinates(currentColonne, currentLigne);
+        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
+            return true;
+        }
+
+        return false;
+
+    };
+
     this.move = function (source, dest) {
         if (source.equal(dest))
             return false;
+
+        if (!this.isMoveValid(source, dest)) {
+            return false;
+        }
+
 
         var inter_dest = this.getIntersection(dest);
         if (inter_dest.getState() === Lyngk.State.VACANT)
