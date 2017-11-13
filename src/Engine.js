@@ -98,7 +98,7 @@ Lyngk.Engine = function () {
 
         if(this.getIntersection(source).getPileHeight() === 5) return false;
 
-        if(this.getIntersection(source).getPileHeight() === 1 && this.getIntersection(dest).getPileHeight() > 1) return false;
+        if(this.getIntersection(source).getPileHeight() < this.getIntersection(dest).getPileHeight()) return false;
 
         for (var i = 0; i < 6; i++) { //0 haut ; 1 bas ; 2 diagonale haut droite ; 3 diagonale haut gauche ; 4 diagonale bas droite ; 5 diagonale bas gauche
             var delta = 1;
