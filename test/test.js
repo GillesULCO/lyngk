@@ -242,6 +242,14 @@ LyngkTestCase.prototype.testStory20 = function () {
 
     assertEquals(inter_D2.getPileHeight(), 5);
     assertFalse(plateau.move(coord_D2, coord_E2));
+};
 
+LyngkTestCase.prototype.testStory21 = function() {
+    var plateau = new Lyngk.Engine();
+    var coord_A3 = new Lyngk.Coordinates('A', 3);
+    var coord_B3 = new Lyngk.Coordinates('B', 3);
+    var coord_C3 = new Lyngk.Coordinates('C', 3);
+    plateau.move(coord_A3, coord_B3);
 
+    assertFalse(plateau.move(coord_C3, coord_B3));
 };
