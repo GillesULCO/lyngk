@@ -96,6 +96,8 @@ Lyngk.Engine = function () {
         var currentLigne;
         var currentColonne;
 
+        if(this.getIntersection(source).getPileHeight() === 5) return false;
+
         for (var i = 0; i < 6; i++) { //0 haut ; 1 bas ; 2 diagonale haut droite ; 3 diagonale haut gauche ; 4 diagonale bas droite ; 5 diagonale bas gauche
             var delta = 1;
             var tempPotentielVoisinIntersection;
