@@ -93,60 +93,50 @@ Lyngk.Engine = function () {
     };
 
     this.isMoveValid = function (source, dest) {
-        var voisins_sources = [];
-        var ligneSource = source.getLine();
-        var colonneSource = source.getColumn();
         var currentLigne;
         var currentColonne;
-        var tempPotentielVoisin;
 
-        //check voisin du haut
-        currentLigne = source.getLine() + 1;
-        tempPotentielVoisin = new Lyngk.Coordinates(colonneSource, currentLigne);
-        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
-            return true;
+        for (var i = 0; i < 6; i++) { //0 haut ; 1 bas ; 2 diagonale haut droite ; 3 diagonale haut gauche ; 4 diagonale bas droite ; 5 diagonale bas gauche
+            var delta = 1;
+            var tempPotentielVoisinIntersection;
+            currentLigne = source.getLine();
+            currentColonne = source.getColumn();
+            do {
+                switch (i) {
+                    case 0 :
+                        currentLigne += delta;
+                        break;
+                    case 1 :
+                        currentLigne -= delta;
+                        break;
+                    case 2 :
+                        currentLigne += delta;
+                        currentColonne = String.fromCharCode((currentColonne.charCodeAt(0)) + delta);
+                        break;
+                    case 3 :
+                        currentColonne = String.fromCharCode((currentColonne.charCodeAt(0)) - delta);
+                        break;
+                    case 4 :
+                        currentColonne = String.fromCharCode((currentColonne.charCodeAt(0)) + delta);
+                        break;
+                    case 5 :
+                        currentLigne -= delta;
+                        currentColonne = String.fromCharCode((currentColonne.charCodeAt(0)) - delta);
+                        break;
+                }
+
+                var tempPotentielVoisinCoordinate = new Lyngk.Coordinates(currentColonne, currentLigne);
+                if (tempPotentielVoisinCoordinate.is_valid()) {
+                    tempPotentielVoisinIntersection = this.getIntersection(tempPotentielVoisinCoordinate);
+                }
+
+            } while (tempPotentielVoisinIntersection && tempPotentielVoisinIntersection === Lyngk.State.VACANT);
+
+            if (tempPotentielVoisinCoordinate.is_valid() && tempPotentielVoisinCoordinate.equal(dest)) {
+                return true;
+            }
         }
-
-        //check voisin du bas
-        currentLigne = source.getLine() - 1;
-        tempPotentielVoisin = new Lyngk.Coordinates(colonneSource, currentLigne);
-        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
-            return true;
-        }
-
-        //check voisin haut droite
-        currentLigne = source.getLine() + 1;
-        currentColonne = String.fromCharCode((source.getColumn().charCodeAt(0)) + 1);
-        tempPotentielVoisin = new Lyngk.Coordinates(currentColonne, currentLigne);
-        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
-            return true;
-        }
-
-        //check voisin haut gauche
-
-        currentColonne = String.fromCharCode((source.getColumn().charCodeAt(0)) - 1);
-        tempPotentielVoisin = new Lyngk.Coordinates(currentColonne, ligneSource);
-        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
-            return true;
-        }
-
-        //check voisin bas droite
-        currentColonne = String.fromCharCode((source.getColumn().charCodeAt(0)) + 1);
-        tempPotentielVoisin = new Lyngk.Coordinates(currentColonne, ligneSource);
-        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
-            return true;
-        }
-
-        //check voisin bas gauche
-        currentLigne = source.getLine() - 1;
-        currentColonne = String.fromCharCode((source.getColumn().charCodeAt(0)) - 1);
-        tempPotentielVoisin = new Lyngk.Coordinates(currentColonne, currentLigne);
-        if (tempPotentielVoisin.is_valid() && tempPotentielVoisin.equal(dest)) {
-            return true;
-        }
-
         return false;
-
     };
 
     this.move = function (source, dest) {
