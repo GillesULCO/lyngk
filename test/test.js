@@ -253,3 +253,22 @@ LyngkTestCase.prototype.testStory21 = function() {
 
     assertFalse(plateau.move(coord_C3, coord_B3));
 };
+
+LyngkTestCase.prototype.testStory22 = function() {
+    var plateau = new Lyngk.Engine();
+    var coord_I7 = new Lyngk.Coordinates('I', 7);
+    var coord_H6 = new Lyngk.Coordinates('H', 6);
+
+    plateau.move(coord_I7, coord_H6);
+
+    var coord_G4 = new Lyngk.Coordinates('G', 4);
+    var coord_G5 = new Lyngk.Coordinates('G', 5);
+
+    plateau.move(coord_G4, coord_G5);
+
+    var coord_G6 = new Lyngk.Coordinates('G', 6);
+
+    plateau.move(coord_G5, coord_G6);
+
+    assertFalse(plateau.move(coord_H6, coord_G6));
+};
