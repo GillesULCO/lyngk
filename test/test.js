@@ -200,10 +200,27 @@ LyngkTestCase.prototype.testStory17 = function () {
     assertFalse(plateau.move(coord_B3, coord_B2));
 };
 
-LyngkTestCase.prototype.testStory18 = function() {
+LyngkTestCase.prototype.testStory18 = function () {
     var plateau = new Lyngk.Engine();
     var coord_C2 = new Lyngk.Coordinates('C', 2);
     var coord_B3 = new Lyngk.Coordinates('B', 3);
 
     assertFalse(plateau.move(coord_C2, coord_B3));
+};
+
+LyngkTestCase.prototype.testStory19 = function () {
+    var plateau = new Lyngk.Engine();
+    var coord_I7 = new Lyngk.Coordinates('I', 7);
+    var coord_H6 = new Lyngk.Coordinates('H', 6);
+    var coord_H5 = new Lyngk.Coordinates('H', 5);
+    var coord_H8 = new Lyngk.Coordinates('H', 8);
+    var coord_F5 = new Lyngk.Coordinates('F', 5);
+    var coord_F3 = new Lyngk.Coordinates('F', 3);
+
+    plateau.move(coord_I7, coord_H6);
+    plateau.move(coord_H6, coord_H5);
+
+    assertFalse(plateau.move(coord_H5, coord_H8));
+    assertFalse(plateau.move(coord_H5, coord_F5));
+    assertFalse(plateau.move(coord_H5, coord_F3));
 };
