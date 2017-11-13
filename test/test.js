@@ -1,6 +1,7 @@
 'use strict';
 
 var LyngkTestCase = TestCase("LyngkTestCase");
+Math.seedrandom("i2l-isidis");
 
 LyngkTestCase.prototype.testStory1 = function () {
     var coordinates = new Lyngk.Coordinates('A', 1);
@@ -223,4 +224,24 @@ LyngkTestCase.prototype.testStory19 = function () {
     assertFalse(plateau.move(coord_H5, coord_H8));
     assertFalse(plateau.move(coord_H5, coord_F5));
     assertFalse(plateau.move(coord_H5, coord_F3));
+};
+
+LyngkTestCase.prototype.testStory20 = function () {
+    var plateau = new Lyngk.Engine();
+    var coord_B2 = new Lyngk.Coordinates('B', 2);
+    var coord_C2 = new Lyngk.Coordinates('C', 2);
+    var coord_D2 = new Lyngk.Coordinates('D', 2);
+    var coord_E2 = new Lyngk.Coordinates('E', 2);
+    var inter_B2 = plateau.getIntersection(coord_B2);
+    var inter_D2 = plateau.getIntersection(coord_D2);
+    inter_B2.poserPiece(Lyngk.Color.BLUE);
+    inter_B2.poserPiece(Lyngk.Color.BLUE);
+
+    plateau.move(coord_B2, coord_C2);
+    plateau.move(coord_C2, coord_D2);
+
+    assertEquals(inter_D2.getPileHeight(), 5);
+    assertFalse(plateau.move(coord_D2, coord_E2));
+
+
 };
