@@ -6,7 +6,7 @@ Math.seedrandom("i2l-isidis");
 LyngkTestCase.prototype.testStory1 = function () {
     var coordinates = new Lyngk.Coordinates('A', 1);
 
-    assertFalse(coordinates.is_valid());
+    assertFalse(coordinates.isValid());
 };
 
 LyngkTestCase.prototype.testStory2 = function () {
@@ -14,7 +14,7 @@ LyngkTestCase.prototype.testStory2 = function () {
     var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
     for (var c = 0; c < letters.length; c++) {
         for (var l = 1; l < 10; l++) {
-            if (new Lyngk.Coordinates(letters[c], l).is_valid())
+            if (new Lyngk.Coordinates(letters[c], l).isValid())
                 compteur++;
         }
     }
@@ -45,7 +45,7 @@ LyngkTestCase.prototype.testStory6 = function () {
     for (var c = 0; c < letters.length; c++) {
         for (var l = 1; l < 10; l++) {
             var coord = new Lyngk.Coordinates(letters[c], l);
-            if (coord.is_valid()) {
+            if (coord.isValid()) {
                 var hash = coord.getHash();
                 if (arrayHashs.indexOf(hash) === -1) {
                     arrayHashs.push(hash);
@@ -100,40 +100,17 @@ LyngkTestCase.prototype.testStory12 = function () {
     plateau.getRandomColor();
 
     var intersections = plateau.getIntersections();
-    var nb_pieces_black = 0;
-    var nb_pieces_ivory = 0;
-    var nb_pieces_blue = 0;
-    var nb_pieces_red = 0;
-    var nb_pieces_green = 0;
-    var nb_pieces_white = 0;
+    var nbPiecesForEachColors = [0, 0, 0, 0, 0, 0];
     for (var inter = 0; inter < intersections.length; inter++) {
-        switch (intersections[inter].getColorLastPiece()) {
-            case Lyngk.Color.BLACK :
-                nb_pieces_black++;
-                break;
-            case Lyngk.Color.BLUE :
-                nb_pieces_blue++;
-                break;
-            case Lyngk.Color.GREEN :
-                nb_pieces_green++;
-                break;
-            case Lyngk.Color.RED :
-                nb_pieces_red++;
-                break;
-            case Lyngk.Color.IVORY :
-                nb_pieces_ivory++;
-                break;
-            case Lyngk.Color.WHITE :
-                nb_pieces_white++;
-                break
+        nbPiecesForEachColors[intersections[inter].getColorLastPiece()]++;
+    }
+    for(var color = 0; color<nbPiecesForEachColors.length;color++){
+        if(color < nbPiecesForEachColors.length-1) {
+            assertEquals(nbPiecesForEachColors[color], 8);
+        }else{
+            assertEquals(nbPiecesForEachColors[color], 3);
         }
     }
-    assertEquals(nb_pieces_white, 3);
-    assertEquals(nb_pieces_red, 8);
-    assertEquals(nb_pieces_blue, 8);
-    assertEquals(nb_pieces_ivory, 8);
-    assertEquals(nb_pieces_green, 8);
-    assertEquals(nb_pieces_black, 8);
 };
 
 LyngkTestCase.prototype.teststory13 = function () {

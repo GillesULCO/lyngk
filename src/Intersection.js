@@ -24,8 +24,10 @@ Lyngk.Intersection = function (c) {
     };
 
     this.getColorPile = function () {
-
-        return (this.getPileHeight() > 0) ? pile[this.getPileHeight() - 1].getColor() : false;
+        if (this.getPileHeight() > 0) {
+            return pile[this.getPileHeight() - 1].getColor();
+        }
+        return false;
     };
 
     this.getPile = function () {
@@ -33,15 +35,12 @@ Lyngk.Intersection = function (c) {
     };
 
     this.updateState = function () {
-        if (this.getPileHeight() === 0) {
-            state = Lyngk.State.VACANT;
-        } else if (this.getPileHeight() === 1) {
-            state = Lyngk.State.ONE_PIECE;
-        } else if (this.getPileHeight() > 1 && this.getPileHeight() < 5) {
-            state = Lyngk.State.STACK;
-        } else {
-            state = Lyngk.State.FULL_STACK;
-        }
+        var states = [
+            Lyngk.State.VACANT, Lyngk.State.ONE_PIECE,
+            Lyngk.State.STACK, Lyngk.State.STACK,
+            Lyngk.State.STACK, Lyngk.State.FULL_STACK
+        ];
+        state = states[this.getPileHeight()];
     };
 
     this.setPile = function (newPile) {
