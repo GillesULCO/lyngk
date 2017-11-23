@@ -3,6 +3,7 @@
 var LyngkTestCase = TestCase("LyngkTestCase");
 Math.seedrandom("i2l-isidis");
 
+
 LyngkTestCase.prototype.testStory1 = function () {
     var coordinates = new Lyngk.Coordinates('A', 1);
 
@@ -146,11 +147,11 @@ LyngkTestCase.prototype.testStory15 = function () {
     var coord_B3 = new Lyngk.Coordinates('B', 3);
     var inter_B3 = plateau.getIntersection(coord_B3);
     var inter_A3 = plateau.getIntersection(coord_A3);
-    inter_A3.poserPiece(Lyngk.Color.BLACK);
+    inter_A3.poserPiece(Lyngk.Color.GREEN);
 
-    plateau.move(coord_A3, coord_B3);
+    assertTrue(plateau.move(coord_A3, coord_B3));
 
-    assertEquals(inter_B3.getColorPile(), Lyngk.Color.BLACK);
+    assertEquals(inter_B3.getColorPile(), Lyngk.Color.GREEN);
     assertEquals(inter_A3.getState(), Lyngk.State.VACANT);
 };
 
@@ -171,11 +172,11 @@ LyngkTestCase.prototype.testStory16 = function () {
 
 LyngkTestCase.prototype.testStory17 = function () {
     var plateau = new Lyngk.Engine();
-    var coord_B2 = new Lyngk.Coordinates('B', 2);
     var coord_B3 = new Lyngk.Coordinates('B', 3);
+    var coord_B4 = new Lyngk.Coordinates('B', 4);
 
-    assertTrue(plateau.move(coord_B2, coord_B3));
-    assertFalse(plateau.move(coord_B3, coord_B2));
+    assertTrue(plateau.move(coord_B3, coord_B4));
+    assertFalse(plateau.move(coord_B4, coord_B3));
 };
 
 LyngkTestCase.prototype.testStory18 = function () {
@@ -211,11 +212,11 @@ LyngkTestCase.prototype.testStory20 = function () {
     var coord_E2 = new Lyngk.Coordinates('E', 2);
     var inter_B2 = plateau.getIntersection(coord_B2);
     var inter_D2 = plateau.getIntersection(coord_D2);
-    inter_B2.poserPiece(Lyngk.Color.BLUE);
-    inter_B2.poserPiece(Lyngk.Color.BLUE);
+    inter_B2.poserPiece(Lyngk.Color.GREEN);
+    inter_B2.poserPiece(Lyngk.Color.GREEN);
 
-    plateau.move(coord_B2, coord_C2);
-    plateau.move(coord_C2, coord_D2);
+    assertTrue(plateau.move(coord_B2, coord_C2));
+    assertTrue(plateau.move(coord_C2, coord_D2));
 
     assertEquals(inter_D2.getPileHeight(), 5);
     assertFalse(plateau.move(coord_D2, coord_E2));
@@ -233,19 +234,43 @@ LyngkTestCase.prototype.testStory21 = function() {
 
 LyngkTestCase.prototype.testStory22 = function() {
     var plateau = new Lyngk.Engine();
-    var coord_I7 = new Lyngk.Coordinates('I', 7);
-    var coord_H6 = new Lyngk.Coordinates('H', 6);
+    var coord_B5 = new Lyngk.Coordinates('B', 5);
+    var coord_C5 = new Lyngk.Coordinates('C', 5);
 
-    plateau.move(coord_I7, coord_H6);
+    assertTrue(plateau.move(coord_B5, coord_C5));
 
-    var coord_G4 = new Lyngk.Coordinates('G', 4);
-    var coord_G5 = new Lyngk.Coordinates('G', 5);
+    var coord_D6 = new Lyngk.Coordinates('D', 6);
 
-    plateau.move(coord_G4, coord_G5);
+    assertTrue(plateau.move(coord_C5, coord_D6));
 
-    var coord_G6 = new Lyngk.Coordinates('G', 6);
+    var coord_E6 = new Lyngk.Coordinates('E', 6);
+    var coord_E7 = new Lyngk.Coordinates('E', 7);
 
-    plateau.move(coord_G5, coord_G6);
+    assertTrue(plateau.move(coord_E7, coord_E6));
 
-    assertFalse(plateau.move(coord_H6, coord_G6));
+
+
+    assertFalse(plateau.move(coord_E6, coord_D6));
+};
+
+
+LyngkTestCase.prototype.testStory23 = function() {
+    var plateau = new Lyngk.Engine();
+
+    var coord_G7 = new Lyngk.Coordinates('G', 7);
+    var coord_G8 = new Lyngk.Coordinates('G', 8);
+
+    assertTrue(plateau.move(coord_G7, coord_G8));
+
+    var coord_G9 = new Lyngk.Coordinates('G', 9);
+
+    assertFalse(plateau.move(coord_G8, coord_G9));
+
+    var coord_D5 = new Lyngk.Coordinates('D', 5);
+    var coord_D6 = new Lyngk.Coordinates('D', 6);
+    var coord_D7 = new Lyngk.Coordinates('D', 7);
+    var coord_E5 = new Lyngk.Coordinates('E', 5);
+    assertTrue(plateau.move(coord_D6, coord_D7));
+    assertTrue(plateau.move(coord_D7, coord_D5));
+    assertFalse(plateau.move(coord_D5, coord_E5));
 };
