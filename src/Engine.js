@@ -79,28 +79,36 @@ Lyngk.Engine = function () {
         return pileHeight === 5;
     };
 
-    this.sourcePileHeightGTdestPileHeight = function (source, dest) {
+    this.sourcePileHeightLTdestPileHeight = function (source, dest) {
+        if (dest === 1) {
+            return false;
+        }
         return source < dest;
     };
 
-    this.getInterVoisin = function (line, column, direction) {
-        var voisinCoord, voisinInter;
-        var voisins = [
-            [line + 1, column],
-            [line - 1, column],
-            [line + 1, String.fromCharCode(column.charCodeAt(0) + 1)],
-            [line, String.fromCharCode(column.charCodeAt(0) - 1)],
-            [line, String.fromCharCode(column.charCodeAt(0) + 1)],
-            [line - 1, String.fromCharCode(column.charCodeAt(0) - 1)]
-        ];
-
+    this.getCoordVoisin = function (line, column, direction) {
+        var voisinCoord, voisinInter = null;
+        var voisins;
         do {
+            voisins = [
+                [line + 1, column],
+                [line - 1, column],
+                [line + 1, String.fromCharCode(column.charCodeAt(0) + 1)],
+                [line, String.fromCharCode(column.charCodeAt(0) - 1)],
+                [line, String.fromCharCode(column.charCodeAt(0) + 1)],
+                [line - 1, String.fromCharCode(column.charCodeAt(0) - 1)]
+            ];
             line = voisins[direction][0];
             column = voisins[direction][1];
-            voisinCoord = new Lyngk.Coordinates(column, line);
-            voisinInter = this.getIntersection(voisinCoord);
 
-        } while (voisinInter && voisinInter === Lyngk.State.VACANT);
+            voisinCoord = new Lyngk.Coordinates(column, line);
+            if (voisinCoord.isValid()) {
+                voisinInter = this.getIntersection(voisinCoord);
+            }else{
+                return null;
+            }
+
+        } while (voisinInter === null || voisinInter.getState() === Lyngk.State.VACANT);
 
         return voisinCoord;
 
@@ -110,10 +118,10 @@ Lyngk.Engine = function () {
         var voisinCoord, dir;
         var currentLine = source.getLine();
         var currentColumn = source.getColumn();
-
         for (dir = 0; dir < 6; dir += 1) {
-            voisinCoord = this.getInterVoisin(currentLine, currentColumn, dir);
+            voisinCoord = this.getCoordVoisin(currentLine, currentColumn, dir);
             if (
+                voisinCoord !== null &&
                 voisinCoord.isValid() &&
                 voisinCoord.equal(dest) &&
                 !source.equal(dest)
@@ -121,20 +129,53 @@ Lyngk.Engine = function () {
                 return true;
             }
         }
-
         return false;
     };
 
-    this.isMoveValid = function (source, dest) {
-        var SPileHeight = this.getIntersection(source).getPileHeight();
-        var DPileHeight = this.getIntersection(dest).getPileHeight();
+    this.sameColorsPieces = function (piece1, piece2) {
+        var color1 = piece1.getColor();
+        var color2 = piece2.getColor();
+        return color1 === color2;
+    };
 
-        if (
+    this.sameColorInTwoPiles = function (sPile, dPile) {
+        var indexS, indexD;
+        for (indexS = 0; indexS < sPile.length; indexS += 1) {
+            if (sPile[indexS].getColor() === Lyngk.Color.WHITE) {
+                continue;
+            }
+            for (indexD = 0; indexD < dPile.length; indexD += 1) {
+                if (dPile[indexD].getColor() === Lyngk.Color.WHITE) {
+                    continue;
+                }
+                if (this.sameColorsPieces(sPile[indexS], dPile[indexD])) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    };
+
+    this.checkPileHeight = function (sPile, dPile) {
+        var SPileHeight = sPile.length;
+        var DPileHeight = dPile.length;
+        return !(
             this.pileHeightIsMax(SPileHeight) ||
-            this.sourcePileHeightGTdestPileHeight(SPileHeight, DPileHeight)
+            this.sourcePileHeightLTdestPileHeight(SPileHeight, DPileHeight)
+        );
+    };
+
+    this.isMoveValid = function (source, dest) {
+        var sPile = this.getIntersection(source).getPile();
+        var dPile = this.getIntersection(dest).getPile();
+        if (
+            !this.checkPileHeight(sPile, dPile) ||
+            this.sameColorInTwoPiles(sPile, dPile)
         ) {
             return false;
         }
+
         return this.checkDirections(source, dest);
     };
 
