@@ -248,8 +248,6 @@ LyngkTestCase.prototype.testStory22 = function() {
 
     assertTrue(plateau.move(coord_E7, coord_E6));
 
-
-
     assertFalse(plateau.move(coord_E6, coord_D6));
 };
 
@@ -273,4 +271,10 @@ LyngkTestCase.prototype.testStory23 = function() {
     assertTrue(plateau.move(coord_D6, coord_D7));
     assertTrue(plateau.move(coord_D7, coord_D5));
     assertFalse(plateau.move(coord_D5, coord_E5));
+};
+
+LyngkTestCase.prototype.testStory24 = function(){
+  var plateau = new Lyngk.Engine();
+
+  assertTrue(plateau.getCurrentPlayer() === Lyngk.Player.PLAYER1);
 };
