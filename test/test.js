@@ -278,3 +278,13 @@ LyngkTestCase.prototype.testStory24 = function(){
 
   assertTrue(plateau.getCurrentPlayer() === Lyngk.Player.PLAYER1);
 };
+
+LyngkTestCase.prototype.testStory25 = function() {
+    var plateau = new Lyngk.Engine();
+    var coord_D6 = new Lyngk.Coordinates('D', 6);
+    var coord_D7 = new Lyngk.Coordinates('D', 7);
+
+    assertTrue(plateau.move(coord_D6, coord_D7));
+
+    assertTrue(plateau.getCurrentPlayer() === Lyngk.Player.PLAYER2);
+};
