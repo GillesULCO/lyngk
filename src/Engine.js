@@ -7,11 +7,15 @@ Lyngk.Player = {PLAYER1: 0, PLAYER2: 1};
 Lyngk.Engine = function () {
     var intersections = [];
     var nbPiecesForEachColor = [0, 0, 0, 0, 0, 0];
-    var availableColors = [0, 1, 2, 3, 4, 5]; // 0 1 5 availableColros[random]
+    var availableColors = [0, 1, 2, 3, 4, 5];
     var currentPlayer = Lyngk.Player.PLAYER1;
 
     this.getCurrentPlayer = function () {
         return currentPlayer;
+    };
+
+    this.majCurrentPlayer = function () {
+        currentPlayer = (this.getCurrentPlayer() === Lyngk.Player.PLAYER1) ? Lyngk.Player.PLAYER2 : Lyngk.Player.PLAYER1;
     };
 
     this.majColors = function (availableColors) {
@@ -110,7 +114,7 @@ Lyngk.Engine = function () {
             voisinCoord = new Lyngk.Coordinates(column, line);
             if (voisinCoord.isValid()) {
                 voisinInter = this.getIntersection(voisinCoord);
-            }else{
+            } else {
                 return null;
             }
 
@@ -198,6 +202,7 @@ Lyngk.Engine = function () {
 
         inter_dest.setPile(inter_dest.getPile().concat(inter_source.getPile()));
         inter_source.clearPile();
+        this.majCurrentPlayer();
         return true;
     };
 
